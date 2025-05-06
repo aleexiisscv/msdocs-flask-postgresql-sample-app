@@ -41,32 +41,43 @@
   </style>
 {% endblock %}
 {% block content %}
-      <h1>Restaurants</h1>
 
-      {% if True %}
-          <table class="table">
-              <thead>
-                  <tr>
-                      <th>Name</th>
-                      <th>Rating</th>
-                      <th class="text-end">Details</th>
-                  </tr>
-              </thead>
-              <tbody>
-                  {% for restaurant in restaurants %}
-                      <tr>
-                          <td>{{ restaurant.name }}</td>
-                          <td>{% include "star_rating.html" %}</td>
-                          <td class="text-end"><a href="{{ url_for('details', id=restaurant.id) }}" class="btn btn-sm btn-primary">Details</a></td>
-                      </tr>
-                  {% endfor %}
-              </tbody>
-          </table>
-      {% else %}
-          <p>No restaurants exist.  Select Add new restaurant to add one.</p>
-      {% endif %}
 
-      <div class="d-flex justify-content-end">
-              <a href="{{ url_for('create_restaurant') }}" class="btn btn-success px-4 gap-3">Add new restaurant</a>
-      </div>
+        <h4 class="mt-5">CONTENIDO DETALLADO DE CONVERSION DE IAMGENES</h4>
+
+        {% if images %}
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>User</th>
+                        <th>Red Pixels</th>
+                        <th>Green Pixels</th>
+                        <th>Blue Pixels</th>
+                        <th>Image Name</th>
+                        <th>Uploaded At</th>
+                        <th>Image</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for image in images %}
+                        <tr>
+                            <td>{{ image.user_name }}</td>
+                            <td>{{ image.red_pixels }}</td>
+                            <td>{{ image.green_pixels }}</td>
+                            <td>{{ image.blue_pixels }}</td>
+                            <td>{{ image.file_name }}</td>
+                            <td>{{ image.timestamp }}</td>
+                            <td>
+                                <img src="{{ url_for('uploaded_file', filename=image.image_path) }}" alt="Uploaded Image" style="width: 100px; height: 100px;">
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p>No uploaded images yet.</p>
+        {% endif %}
+    <div class="d-flex justify-content-end mt-3">
+        <a href="{{ url_for('create_image_conversion') }}" class="btn btn-success">Add New Image Conversion</a>
+    </div>
 {% endblock %}
