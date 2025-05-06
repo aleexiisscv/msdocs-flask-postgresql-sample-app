@@ -124,6 +124,7 @@ def allowed_file(filename):
 
 @app.route('/uploads/<filename>')
 def uploaded_file(filename):
+    print(f"Serving file######: {filename}")
     return send_from_directory(os.path.join(app.root_path, 'uploads'), filename)
 
 @app.route('/favicon.ico')
