@@ -6,10 +6,13 @@ from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
 from flask_wtf.csrf import CSRFProtect
 from werkzeug.utils import secure_filename
+from dotenv import load_dotenv
 
 app = Flask(__name__, static_folder='static')
 csrf = CSRFProtect(app)
-
+load_dotenv()
+# Set the secret key for CSRF protection
+app.config['SECRET_KEY'] = os.getenv('SECRET_KEY', 'default-secret-key')  # Usa una clave secreta segura
 # WEBSITE_HOSTNAME exists only in production environmentttt
 if 'WEBSITE_HOSTNAME' not in os.environ:
     # local development, where we'll use environment variables
