@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block title %}Add Image Conversion{% endblock %}
+{% block content %}
+    <h1>Add New Image Conversion</h1>
+
+    <form method="POST" action="{{ url_for('add_image_conversion') }}">
+        <div class="mb-3">
+            <label for="user_name" class="form-label">User Name</label>
+            <input type="text" class="form-control" id="user_name" name="user_name" required>
+        </div>
+        <div class="mb-3">
+            <label for="file_name" class="form-label">File Name</label>
+            <input type="text" class="form-control" id="file_name" name="file_name" required>
+        </div>
+        <div class="mb-3">
+            <label for="red_pixels" class="form-label">Red Pixels</label>
+            <input type="number" class="form-control" id="red_pixels" name="red_pixels" required>
+        </div>
+        <div class="mb-3">
+            <label for="green_pixels" class="form-label">Green Pixels</label>
+            <input type="number" class="form-control" id="green_pixels" name="green_pixels" required>
+        </div>
+        <div class="mb-3">
+            <label for="blue_pixels" class="form-label">Blue Pixels</label>
+            <input type="number" class="form-control" id="blue_pixels" name="blue_pixels" required>
+        </div>
+        <div class="mb-3">
+            <label for="image_file" class="form-label">Upload Image (.bmp)</label>
+            <input type="file" class="form-control" id="image_file" name="image_file" accept=".bmp" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+        <a href="{{ url_for('index') }}" class="btn btn-secondary">Cancel</a>
+    </form>
+{% endblock %}
