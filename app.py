@@ -78,7 +78,9 @@ def add_image_conversion():
         return f"An error occurred: {str(e)}", 500
 
 @app.route('/upload', methods=['GET', 'POST'])
+@csrf.exempt
 def upload_image():
+
     if request.method == 'POST':
         if 'image_file' not in request.files:
             return "No file part", 400
