@@ -1,83 +1,87 @@
 {% extends "base.html" %}
 {% block title %}Restaurant List{% endblock %}
 {% block head %}
-    {{ super() }}
-    <style>
-      body {
-          min-height: 75rem;
-          padding-top: 4.5rem;
-      }
+  {{ super() }}
+  <style>
+    body {
+      min-height: 75rem;
+      padding-top: 4.5rem;
+    }
 
-      .score {
-        display: block;
-        font-size: 16px;
-        position: relative;
-        overflow: hidden;
-      }
-      
-      .score-wrap {
-        display: inline-block;
-        position: relative;
-        height: 19px;
-      }
-      
-      .score .stars-active {
-        color: #EEBD01;
-        position: relative;
-        z-index: 10;
-        display: inline-block;
-        overflow: hidden;
-        white-space: nowrap;
-      }
-      
-      .score .stars-inactive {
-        color: grey;
-        position: absolute;
-        top: 0;
-        left: 0;
-        -webkit-text-stroke: initial;
-        /* overflow: hidden; */
-      }
+    .score {
+    display: block;
+    font-size: 16px;
+    position: relative;
+    overflow: hidden;
+    }
+    
+    .score-wrap {
+    display: inline-block;
+    position: relative;
+    height: 19px;
+    }
+    
+    .score .stars-active {
+    color: #EEBD01;
+    position: relative;
+    z-index: 10;
+    display: inline-block;
+    overflow: hidden;
+    white-space: nowrap;
+    }
+    
+    .score .stars-inactive {
+    color: grey;
+    position: absolute;
+    top: 0;
+    left: 0;
+    -webkit-text-stroke: initial;
+    /* overflow: hidden; */
+    }
   </style>
 {% endblock %}
 {% block content %}
 
 
-        <h4 class="mt-5">CONTENIDO DETALLADO DE CONVERSION DE IAMGENES</h4>
+    <h4 class="mt-5">CONTENIDO DETALLADO DE CONVERSION DE IAMGENES</h4>
 
-        {% if images %}
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th>User</th>
-                        <th>Red Pixels</th>
-                        <th>Green Pixels</th>
-                        <th>Blue Pixels</th>
-                        <th>Image Name</th>
-                        <th>Uploaded At</th>
-                        <th>Image</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for image in images %}
-                        <tr>
-                            <td>{{ image.user_name }}</td>
-                            <td>{{ image.red_pixels }}</td>
-                            <td>{{ image.green_pixels }}</td>
-                            <td>{{ image.blue_pixels }}</td>
-                            <td>{{ image.file_name }}</td>
-                            <td>{{ image.timestamp }}</td>
-                            <td>
-                                <img src="{{ url_for('uploaded_file', filename=image.image_path) }}" alt="Uploaded Image" style="width: 100px; height: 100px;">
-                            </td>
-                        </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        {% else %}
-            <p>No uploaded images yet.</p>
-        {% endif %}
-    <div class="d-flex justify-content-end mt-3">
-        <a href="{{ url_for('create_image_conversion') }}" class="btn btn-success">Add New Image Conversion</a>
-    </div>
-{% endblock %}
+    {% if images %}
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>User</th>
+            <th>Red Pixels</th>
+            <th>Green Pixels</th>
+            <th>Blue Pixels</th>
+            <th>Image Name</th>
+            <th>Uploaded At</th>
+            <th>Image</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for image in images %}
+            <tr>
+              <td>{{ image.user_name }}</td>
+              <td>{{ image.red_pixels }}</td>
+              <td>{{ image.green_pixels }}</td>
+              <td>{{ image.blue_pixels }}</td>
+              <td>{{ image.file_name }}</td>
+              <td>{{ image.timestamp }}</td>
+              <td>
+                {% if image.image_path %}
+                  <img src="{{ url_for('uploaded_file', filename=image.image_path) }}" alt="Uploaded Image" style="width: 100px; height: 100px;">
+                {% else %}
+                  <p>No image available</p>
+                {% endif %}
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    {% else %}
+      <p>No uploaded images yet.</p>
+    {% endif %}
+  <div class="d-flex justify-content-end mt-3">
+    <a href="{{ url_for('create_image_conversion') }}" class="btn btn-success">Add New Image Conversion</a>
+  </div>
+{% endblock %}</div>
