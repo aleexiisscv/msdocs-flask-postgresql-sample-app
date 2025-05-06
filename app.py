@@ -129,6 +129,17 @@ def uploaded_file(filename):
     print(f"Serving file######: {filename}")
     return send_from_directory(os.path.join(app.root_path, 'uploads'), filename)
 
+
+@app.route('/limpiar_tabla', methods=['POST'])
+@csrf.exempt
+def clear_records():
+        try:
+            db.session.query(ImageConversionResult).delete()
+            db.session.commit()
+            return redirect(url_for('index'))
+        except Exception as e:
+            return f"An error occurred while clearing records: {str(e)}", 500
+
 @app.route('/favicon.ico')
 def favicon():
     return send_from_directory(os.path.join(app.root_path, 'static'),
