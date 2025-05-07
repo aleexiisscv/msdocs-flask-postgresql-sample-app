@@ -43,6 +43,23 @@
 {% block content %}
 <h4 class="mt-5">CONTENIDO DETALLADO DE CONVERSION DE IMAGENES</h4>
 
+<!-- Botón desplegable para filtros de ordenación -->
+<div class="dropdown mb-3">
+  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+    Ordenar por
+  </button>
+  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+    <li><a class="dropdown-item" href="{{ url_for('index', sort_by='timestamp', order='desc') }}">Fecha (Más recientes)</a></li>
+    <li><a class="dropdown-item" href="{{ url_for('index', sort_by='timestamp', order='asc') }}">Fecha (Más antiguos)</a></li>
+    <li><a class="dropdown-item" href="{{ url_for('index', sort_by='red_pixels', order='desc') }}">Píxeles Rojos (Mayor a menor)</a></li>
+    <li><a class="dropdown-item" href="{{ url_for('index', sort_by='red_pixels', order='asc') }}">Píxeles Rojos (Menor a mayor)</a></li>
+    <li><a class="dropdown-item" href="{{ url_for('index', sort_by='file_name', order='asc') }}">Nombre del Archivo (A-Z)</a></li>
+    <li><a class="dropdown-item" href="{{ url_for('index', sort_by='file_name', order='desc') }}">Nombre del Archivo (Z-A)</a></li>
+    <li><a class="dropdown-item" href="{{ url_for('index', sort_by='user_name', order='asc') }}">Usuario (A-Z)</a></li>
+    <li><a class="dropdown-item" href="{{ url_for('index', sort_by='user_name', order='desc') }}">Usuario (Z-A)</a></li>
+  </ul>
+</div>
+
 {% if images %}
   <table class="table table-striped">
     <thead>

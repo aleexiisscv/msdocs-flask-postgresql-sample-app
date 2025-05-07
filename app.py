@@ -43,9 +43,30 @@ from models import Restaurant, Review , ImageConversionResult
 
 @app.route('/', methods=['GET'])
 def index():
-    print("SOLICTANDO NUEVA INFORMACION")
-    images = ImageConversionResult.query.all()
-    return render_template('index.html', images=images)
+    print("SOLICITANDO NUEVA INFORMACION")
+    
+    # Obtener el criterio de ordenación de los parámetros de la URL
+    sort_by = request.args.get('sort_by', 'timestamp')  # Por defecto, ordenar por fecha
+    order = request.args.get('order', 'desc')  # Por defecto, orden descendente
+
+    # Mapear los criterios de ordenación a las columnas del modelo
+    sort_options = {
+        'timestamp': ImageConversionResult.timestamp,
+        'red_pixels': ImageConversionResult.red_pixels,
+        'file_name': ImageConversionResult.file_name,
+        'user_name': ImageConversionResult.user_name
+    }
+
+    # Obtener la columna para ordenar
+    sort_column = sort_options.get(sort_by, ImageConversionResult.timestamp)
+
+    # Aplicar el orden ascendente o descendente
+    if order == 'asc':
+        images = ImageConversionResult.query.order_by(sort_column.asc()).all()
+    else:
+        images = ImageConversionResult.query.order_by(sort_column.desc()).all()
+
+    return render_template('index.html', images=images, sort_by=sort_by, order=order)
 
 
 @app.route('/create_image_conversion', methods=['GET'])
