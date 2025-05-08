@@ -39,7 +39,7 @@ db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 
 # The import must be done after db initialization due to circular import issue
-from models import Restaurant, Review , ImageConversionResult
+from models import ImageConversionResult
 
 @app.route('/', methods=['GET'])
 def index():
@@ -68,35 +68,6 @@ def index():
 
     return render_template('index.html', images=images, sort_by=sort_by, order=order)
 
-
-@app.route('/create_image_conversion', methods=['GET'])
-def create_image_conversion():
-    return render_template('create_image_conversion.html')
-
-@app.route('/add_image_conversion', methods=['POST'])
-@csrf.exempt
-def add_image_conversion():
-    try:
-        user_name = request.form['user_name']
-        file_name = request.form['file_name']
-        red_pixels = int(request.form['red_pixels'])
-        green_pixels = int(request.form['green_pixels'])
-        blue_pixels = int(request.form['blue_pixels'])
-
-        image_conversion_result = ImageConversionResult(
-            user_name=user_name,
-            file_name=file_name,
-            red_pixels=red_pixels,
-            green_pixels=green_pixels,
-            blue_pixels=blue_pixels,
-            timestamp=datetime.now()
-        )
-        db.session.add(image_conversion_result)
-        db.session.commit()
-
-        return redirect(url_for('index'))
-    except Exception as e:
-        return f"An error occurred: {str(e)}", 500
 
 @app.route('/upload', methods=['GET', 'POST'])
 @csrf.exempt
